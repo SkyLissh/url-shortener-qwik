@@ -1,3 +1,5 @@
+import "@fontsource/poppins";
+
 import { component$ } from "@builder.io/qwik";
 import {
   QwikCityProvider,
@@ -23,7 +25,7 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
       </head>
-      <body lang="en">
+      <body lang="en" class="relative bg-slate-100">
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>

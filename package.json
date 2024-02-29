@@ -47,8 +47,12 @@
   },
   "dependencies": {
     "@fontsource/poppins": "^5.0.8",
+    "@modular-forms/qwik": "^0.23.1",
+    "@qwikest/icons": "^0.0.13",
     "@trpc/client": "11.0.0-next-beta.294",
     "@trpc/server": "11.0.0-next-beta.294",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.1",
     "zod": "^3.22.4"
   }
 }
