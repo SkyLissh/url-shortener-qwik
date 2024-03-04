@@ -1,29 +1,26 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
-
 import { useForm, zodForm$, type InitialValues } from "@modular-forms/qwik";
-import { LuChevronRight, LuLink } from "@qwikest/icons/lucide";
-import { z } from "zod";
+import { LuChevronRight, LuLink, LuLoader2 } from "@qwikest/icons/lucide";
 
 import { Button } from "~/components/button";
+import { Clipboard } from "~/components/clipboard";
 import { Input, InputField, InputIcon } from "~/components/input";
 import { Square } from "~/components/square";
 
-const FormSchema = z.object({
-  url: z.string().min(1, "Url is required").url("Please enter a valid url"),
-});
-
-type UrlForm = z.infer<typeof FormSchema>;
+import { UrlFormSchema, type UrlForm } from "~/schemas/url-form";
+import { useShortUrl } from "~/server/actions/url";
 
 export const useFormLoader = routeLoader$<InitialValues<UrlForm>>(() => ({
   url: "",
 }));
 
 export default component$(() => {
-  const [_, { Form, Field }] = useForm<UrlForm>({
+  const [urlForm, { Form, Field }] = useForm<UrlForm, { shortenUrl: string }>({
     loader: useFormLoader(),
-    validate: zodForm$(FormSchema),
+    validate: zodForm$(UrlFormSchema),
     validateOn: "input",
+    action: useShortUrl(),
   });
 
   return (
@@ -49,19 +46,31 @@ export default component$(() => {
                   <Input
                     q:slot="input"
                     type="text"
+                    value={urlForm.response.data?.shortenUrl}
                     placeholder="https://qwik.builder.io"
                     invalid={field.error !== ""}
                     {...props}
                   />
                 </InputField>
                 {field.error && <p class="text-red-500">{field.error}</p>}
+                {urlForm.response.status === "error" && (
+                  <p class="text-red-500">{urlForm.response.message}</p>
+                )}
               </div>
             )}
           </Field>
 
-          <Button type="submit">
-            <LuChevronRight />
-          </Button>
+          {urlForm.response.status === "success" ? (
+            <Clipboard text={urlForm.response.data?.shortenUrl ?? ""} />
+          ) : (
+            <Button type="submit">
+              {urlForm.submitting ? (
+                <LuLoader2 class="animate-spin" />
+              ) : (
+                <LuChevronRight />
+              )}
+            </Button>
+          )}
         </Form>
       </main>
     </>
