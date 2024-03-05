@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709269689119,
+      "tag": "0000_whole_ronan",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709273605063,
+      "tag": "0001_swift_bloodscream",
+      "breakpoints": true
+    }
+  ]
+}

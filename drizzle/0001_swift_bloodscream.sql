@@ -1,0 +1,1 @@
+ALTER TABLE "urls" ALTER COLUMN "shorten_url" SET NOT NULL;
