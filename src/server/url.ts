@@ -11,7 +11,7 @@ import { UrlCreateSchema } from "~/schemas/url";
 
 export const urlRouter = router({
   create: procedure.input(UrlCreateSchema).mutation(async ({ input }) => {
-    const targetUrl = await db
+    const targetUrl = await db()
       .select()
       .from(urls)
       .where(eq(urls.targetUrl, input.targetUrl));
@@ -20,14 +20,14 @@ export const urlRouter = router({
       return targetUrl[0].shortenUrl;
     }
 
-    const url = await db.insert(urls).values(input).returning();
+    const url = await db().insert(urls).values(input).returning();
 
     return url[0].shortenUrl;
   }),
   getByShorten: procedure
     .input(z.object({ shortenUrl: z.string().length(10) }))
     .query(async ({ input }) => {
-      const url = await db
+      const url = await db()
         .select()
         .from(urls)
         .where(eq(urls.shortenUrl, input.shortenUrl));
