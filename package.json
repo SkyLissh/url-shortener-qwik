@@ -63,6 +63,7 @@
     "drizzle-orm": "^0.29.4",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.2.1",
+    "tailwind-variants": "^0.2.0",
     "zod": "^3.22.4"
   }
 }

@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
-import { useForm, zodForm$, type InitialValues } from "@modular-forms/qwik";
+import { reset, useForm, zodForm$, type InitialValues } from "@modular-forms/qwik";
 import { LuChevronRight, LuLink, LuLoader2 } from "@qwikest/icons/lucide";
 
 import { Button } from "~/components/button";
@@ -63,7 +63,7 @@ export default component$(() => {
           {urlForm.response.status === "success" ? (
             <Clipboard text={urlForm.response.data?.shortenUrl ?? ""} />
           ) : (
-            <Button type="submit">
+            <Button type="submit" class="text-3xl">
               {urlForm.submitting ? (
                 <LuLoader2 class="animate-spin" />
               ) : (
@@ -72,17 +72,51 @@ export default component$(() => {
             </Button>
           )}
         </Form>
+
+        {urlForm.response.status === "success" && (
+          <Button variant="text" size="small" onClick$={() => reset(urlForm)}>
+            Short another url!
+          </Button>
+        )}
       </main>
     </>
   );
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "URL Shortener",
   meta: [
     {
       name: "description",
-      content: "Qwik site description",
+      content: "Create short urls, in a simple way!",
+    },
+    {
+      name: "theme-color",
+      content: "#6366f1",
+    },
+    {
+      name: "author",
+      content: "SkyLissh",
+    },
+    {
+      name: "og:title",
+      content: "URL Shortener",
+    },
+    {
+      name: "og:description",
+      content: "Create short urls, in a simple way!",
+    },
+    {
+      name: "og:type",
+      content: "website",
+    },
+    {
+      name: "og:url",
+      content: "https://url.skylissh.com",
+    },
+    {
+      name: "og:image",
+      content: "/og-image.png",
     },
   ],
 };
