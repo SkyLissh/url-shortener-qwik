@@ -23,6 +23,7 @@ export const Clipboard = component$(({ text }: { text: string }) => {
     <Tooltip message={message.value} show={showTooltip.value}>
       <Button
         type="button"
+        class="text-3xl"
         onClick$={copyToClipboard}
         onFocusOut$={() => (showTooltip.value = false)}
       >
