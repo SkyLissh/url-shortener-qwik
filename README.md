@@ -48,7 +48,3 @@ Requires Node 20+. Deploys to the Vercel Edge runtime with a Postgres DB.
 - Resumable edge-first frameworks (Qwik) and Vercel Edge
 - End-to-end typed full-stack: Drizzle schema · tRPC · Zod
 - Type-safe forms and clean, component-based UI
-
----
-
-*Built by [Alisson "SkyLissh" Hernandez] — TypeScript, full-stack, and edge compute. This is a personal portfolio project.*
